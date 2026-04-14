@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORI Player — La plataforma d'assaig per a cors</title>
+<meta name="description" content="CORI Player digitalitza el repertori coral. Vídeo sincronitzat, àudio per veus, mixer professional. L'eina que el teu cor necessita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue-deep:  #071D2C;
+  --blue-mid:   #004F7D;
+  --blue-light: #0A2A40;
+  --accent:     #3FA9F5;
+  --accent2:    #7FD0FF;
+  --gold:       #C9A84C;
+  --text:       #F4F4EF;
+  --muted:      #8FA8BC;
+  --border:     rgba(63,169,245,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--blue-deep);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(7,29,44,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--accent);
+  color: #071D2C;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(4,79,125,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(63,169,245,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Staff lines decoration */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 120px;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 22px,
+    rgba(63,169,245,0.04) 22px,
+    rgba(63,169,245,0.04) 23px
+  );
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #071D2C;
+  border: none;
+  padding: 16px 36px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(63,169,245,0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 15px 36px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ── DEMO PREVIEW ── */
+.demo-section {
+  padding: 0 24px 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.demo-frame {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(63,169,245,0.1),
+    0 40px 80px rgba(0,0,0,0.5),
+    0 0 80px rgba(63,169,245,0.05);
+}
+
+.demo-bar {
+  background: var(--blue-mid);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.demo-url {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.04em;
+}
+
+.demo-content {
+  background: var(--blue-light);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.demo-score {
+  background: white;
+  border-radius: 8px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.demo-score svg { width: 100%; height: 100%; }
+
+.demo-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 140px;
+}
+
+.demo-pill {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 12px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.demo-play-btn {
+  background: linear-gradient(180deg, #3FA9F5 0%, #2D8FD8 100%);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.demo-mixer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.demo-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.demo-track-bar {
+  flex: 1;
+  height: 3px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.demo-track-fill {
+  height: 100%;
+  border-radius: 99px;
+}
+
+/* ── FEATURES ── */
+.features {
+  padding: 100px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.15;
+  margin-bottom: 64px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.feature-card {
+  background: var(--blue-light);
+  padding: 40px 36px;
+  transition: background 0.2s;
+  position: relative;
+}
+
+.feature-card:hover { background: rgba(10,42,64,0.9); }
+
+.feature-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.feature-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── HOW IT WORKS ── */
+.how {
+  padding: 100px 24px;
+  background: var(--blue-light);
+}
+
+.how-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  margin-top: 64px;
+  background: var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.step {
+  background: var(--blue-deep);
+  padding: 40px 32px;
+  position: relative;
+}
+
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.step h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: var(--accent);
+}
+
+.step p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── FOR WHO ── */
+.forwho {
+  padding: 100px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.tag {
+  background: rgba(63,169,245,0.08);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 14px;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+
+.tag:hover {
+  background: rgba(63,169,245,0.15);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* ── CONTACT ── */
+.contact {
+  padding: 100px 24px;
+  background: var(--blue-light);
+  text-align: center;
+}
+
+.contact-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.15;
+}
+
+.contact p {
+  color: var(--muted);
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 18px;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(63,169,245,0.3);
+  padding-bottom: 4px;
+  transition: border-color 0.2s;
+}
+
+.contact-email:hover { border-color: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.footer-logo span { color: var(--accent); }
+
+footer p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer-valgreen {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer-valgreen a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow { animation: fadeUp 0.6s ease both; animation-delay: 0.1s; }
+.hero h1      { animation: fadeUp 0.6s ease both; animation-delay: 0.2s; }
+.hero-sub     { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
+.hero-actions { animation: fadeUp 0.6s ease both; animation-delay: 0.4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+  .demo-content { grid-template-columns: 1fr; }
+  .demo-controls { flex-direction: row; flex-wrap: wrap; min-width: auto; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">C<span>Ō</span>RI Player</a>
+  <div class="nav-links">
+    <a href="#features">Funcionalitats</a>
+    <a href="#how">Com funciona</a>
+    <a href="#contact">Contacte</a>
+  </div>
+  <a href="https://demo.coriplayer.com" class="nav-cta" target="_blank">Veure demo</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Plataforma d'assaig coral digital</div>
+  <h1>El teu cor,<br><em>sempre preparat</em></h1>
+  <p class="hero-sub">Vídeo sincronitzat · Àudio per veus · Mixer professional</p>
+  <div class="hero-actions">
+    <a href="https://demo.coriplayer.com" class="btn-primary" target="_blank">Provar la demo</a>
+    <a href="#contact" class="btn-secondary">Sol·licitar informació</a>
+  </div>
+</section>
+
+<!-- DEMO PREVIEW -->
+<div class="demo-section">
+  <div class="demo-frame">
+    <div class="demo-bar">
+      <div class="demo-dot" style="background:#FF5F57"></div>
+      <div class="demo-dot" style="background:#FFBD2E"></div>
+      <div class="demo-dot" style="background:#28C840"></div>
+      <div class="demo-url">demo.coriplayer.com</div>
+    </div>
+    <div class="demo-content">
+      <div>
+        <div style="font-size:18px;font-family:'Cormorant Garamond',serif;margin-bottom:4px;">Kyrie eleison</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Manuel Blanch i Puig · Missa de les Santes</div>
+        <div class="demo-score">
+          <!-- Simple staff line SVG -->
+          <svg viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+            <rect width="600" height="180" fill="white"/>
+            <!-- Staff lines -->
+            <g stroke="#333" stroke-width="1" opacity="0.7">
+              <line x1="60" y1="40" x2="580" y2="40"/>
+              <line x1="60" y1="55" x2="580" y2="55"/>
+              <line x1="60" y1="70" x2="580" y2="70"/>
+              <line x1="60" y1="85" x2="580" y2="85"/>
+              <line x1="60" y1="100" x2="580" y2="100"/>
+              <line x1="60" y1="120" x2="580" y2="120"/>
+              <line x1="60" y1="135" x2="580" y2="135"/>
+              <line x1="60" y1="150" x2="580" y2="150"/>
+              <line x1="60" y1="165" x2="580" y2="165"/>
+            </g>
+            <!-- Clef -->
+            <text x="65" y="95" font-size="60" font-family="serif" fill="#222">𝄞</text>
+            <!-- Notes suggestion -->
+            <circle cx="160" cy="70" r="7" fill="#222"/>
+            <line x1="167" y1="70" x2="167" y2="30" stroke="#222" stroke-width="1.5"/>
+            <circle cx="210" cy="55" r="7" fill="#222"/>
+            <line x1="217" y1="55" x2="217" y2="15" stroke="#222" stroke-width="1.5"/>
+            <circle cx="260" cy="85" r="7" fill="#222"/>
+            <line x1="267" y1="85" x2="267" y2="45" stroke="#222" stroke-width="1.5"/>
+            <circle cx="310" cy="70" r="7" fill="#222"/>
+            <line x1="317" y1="70" x2="317" y2="30" stroke="#222" stroke-width="1.5"/>
+            <circle cx="360" cy="55" r="7" fill="#333"/>
+            <line x1="367" y1="55" x2="367" y2="15" stroke="#222" stroke-width="1.5"/>
+            <circle cx="410" cy="100" r="7" fill="#222"/>
+            <line x1="417" y1="100" x2="417" y2="60" stroke="#222" stroke-width="1.5"/>
+            <!-- Playhead -->
+            <line x1="280" y1="20" x2="280" y2="175" stroke="#3FA9F5" stroke-width="2" opacity="0.8"/>
+          </svg>
+        </div>
+        <!-- Timeline -->
+        <div style="display:flex;align-items:center;gap:10px;margin-top:12px;">
+          <span style="font-size:12px;color:var(--muted)">0:42</span>
+          <div style="flex:1;height:4px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;">
+            <div style="width:30%;height:100%;background:var(--accent);border-radius:99px;"></div>
+          </div>
+          <span style="font-size:12px;color:var(--muted)">4:23</span>
+        </div>
+      </div>
+      <div class="demo-controls">
+        <div class="demo-pill">Soprano ▶ Solo</div>
+        <button class="demo-play-btn">⏸ Pausa</button>
+        <div class="demo-mixer">
+          <div class="demo-track">
+            <span style="width:60px">Soprano</span>
+            <div class="demo-track-bar"><div class="demo-track-fill" style="width:90%;background:#3FA9F5"></div></div>
+          </div>
+          <div class="demo-track">
+            <span style="width:60px">Contralt</span>
+            <div class="demo-track-bar"><div class="demo-track-fill" style="width:40%;background:#45C6A6"></div></div>
+          </div>
+          <div class="demo-track">
+            <span style="width:60px">Tenor</span>
+            <div class="demo-track-bar"><div class="demo-track-fill" style="width:40%;background:#45C6A6"></div></div>
+          </div>
+          <div class="demo-track">
+            <span style="width:60px">Baix</span>
+            <div class="demo-track-bar"><div class="demo-track-fill" style="width:40%;background:#45C6A6"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">Funcionalitats</div>
+  <h2 class="section-title">Tot el que el teu cor necessita<br>per assajar millor</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎬</div>
+      <h3>Vídeo sincronitzat</h3>
+      <p>La partitura en vídeo avança automàticament amb la música. Cada corista veu exactament on és en cada moment.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎚️</div>
+      <h3>Mixer per veus</h3>
+      <p>Cada veu té el seu propi canal d'àudio. Puja la soprano, baixa el tenor, activa el Solo. Tot en temps real.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Mòbil i tablet</h3>
+      <p>Funciona perfectament a iPhone i Android. En horitzontal, el vídeo omple la pantalla per màxima comoditat.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3>Sense instal·lació</h3>
+      <p>Accés directe des del navegador. Sense app, sense subscripció individual. Un link i ja pots assajar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎼</div>
+      <h3>Repertori organitzat</h3>
+      <p>Totes les obres del cor en un sol lloc. Selector intuïtiu amb grups i submenús per organitzar per projectes.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Producció professional</h3>
+      <p>Sibelius, Cantamus i Logic Pro per generar vídeo, síntesi vocal i stems d'àudio de màxima qualitat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="section-label">Com funciona</div>
+    <h2 class="section-title" style="text-align:center">Del pentagrama<br>a l'assaig</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Ens envies la partitura</h3>
+        <p>En format Sibelius, MusicXML o PDF. Nosaltres ens encarreguem de tot el procés de producció.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Produïm el material</h3>
+        <p>Generem el vídeo de partitura, síntesi vocal per veu i exportem els stems d'àudio amb qualitat professional.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Publiquem al player</h3>
+        <p>Pugem tot a la teva versió personalitzada de CORI Player. El teu cor ja pot assajar.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>El cor assaja</h3>
+        <p>Cada corista entra al seu link, tria la veu, regula el volum i assaja quan i on vulgui.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="forwho">
+  <div class="section-label">Per a qui és</div>
+  <h2 class="section-title">Dissenyat per a qualsevol<br>projecte coral</h2>
+  <div class="tags">
+    <div class="tag">Cors amateurs</div>
+    <div class="tag">Cors professionals</div>
+    <div class="tag">Cors universitaris</div>
+    <div class="tag">Cors escolars</div>
+    <div class="tag">Cors de cambra</div>
+    <div class="tag">Cors litúrgics</div>
+    <div class="tag">Grups vocals</div>
+    <div class="tag">Festivals corals</div>
+    <div class="tag">Projectes puntuals</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <h2>Parlem del teu cor</h2>
+    <p>T'expliquem com podem digitalitzar el teu repertori i posar-te en marxa en qüestió de dies.</p>
+    <a href="mailto:info@coriplayer.com" class="contact-email">
+      ✉ info@coriplayer.com
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">C<span style="color:var(--accent)">Ō</span>RI Player</div>
+  <p style="font-size:13px;color:var(--muted)">La plataforma d'assaig per a cors · 2025</p>
+  <div class="footer-valgreen">
+    Desenvolupat per <a href="https://valgreenmusic.com" target="_blank">Valgreen Music</a>
+  </div>
+</footer>
+
+</body>
+</html>
