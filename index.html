@@ -606,9 +606,19 @@ footer p {
   <div class="contact-inner">
     <h2>Parlem del teu cor</h2>
     <p>T'expliquem com podem digitalitzar el teu repertori i posar-te en marxa en qüestió de dies.</p>
-    <a href="mailto:info@coriplayer.com" class="contact-email">
-      ✉ info@coriplayer.com
-    </a>
+   <a href="#" class="contact-email" id="contact-link">
+  ✉ <span id="contact-email-text"></span>
+</a>
+<script>
+  (function(){
+    var u = 'info', d = 'coriplayer', t = 'com';
+    var el = document.getElementById('contact-email-text');
+    var lnk = document.getElementById('contact-link');
+    var addr = u + '@' + d + '.' + t;
+    el.textContent = addr;
+    lnk.href = 'mailto:' + addr;
+  })();
+</script>
   </div>
 </section>
 
